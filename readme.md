@@ -2,7 +2,7 @@
 
 Just run xd
 
-- f1 > aim (Active/Desactive)
+- f1 > wall (Active/Desactive)
 - f2 > bhop (Active/Desactive)
 - 0 > exit
 
