@@ -1,10 +1,10 @@
 ## zt_cs cheat
 
-Just [download](https://github.com/zabbix-byte/zt_cs_cheat/blob/main/output/zt_cs.zip) and unzip, run zt_cs and enjoy
+**Just [download](https://github.com/zabbix-byte/zt_cs_cheat/blob/main/output/zt_cs.zip) and unzip, run zt_cs and enjoy**
 
-*WALL, BHOP AND AIM*
+#### *WALL, BHOP AND AIM*
 
-**AIM Options**
+### **AIM Options**
 - conf_random: *5 to 25*
 - conf_spotted: *True/False*
 - conf_baim: *True/False*
@@ -13,12 +13,23 @@ Just [download](https://github.com/zabbix-byte/zt_cs_cheat/blob/main/output/zt_c
 - conf_aimtrcs: *True/False*
 - conf_sens: *0.5 to 1.5*
 
-### keys
-- 7 > WALL (START-STOP(IF BHOP ON YOU CANT STOP))
+### **KEYS**
+**WALL**
+
+- 7 > START WALL
+- 7 > STOP WALL
+
+**BHOP**
+
 - 8 > ENTER TO BHOP
 - F-3 > EXIT BHOP
+
+**AIM**
+
 - 9 > ENTER TO AIM
 - F-3 > EXIT AIM
+
+**EXIT**
 - 0 > EXIT
 
 made for fun
