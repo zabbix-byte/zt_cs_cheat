@@ -13,7 +13,7 @@ class Bhop(Player):
     def __init__(self) -> None:
         super().__init__()
         while True:
-            time.sleep(0.0025)
+            time.sleep(0.0015)
             if keyboard.is_pressed('space'):
                 self.active_bhop()
 
