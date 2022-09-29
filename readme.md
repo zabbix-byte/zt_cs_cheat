@@ -13,3 +13,5 @@ Just [download](https://github.com/zabbix-byte/zt_cs_cheat/blob/main/output/zt_c
 - 0 > EXIT
 
 made for fun
+
+![](https://github.com/zabbix-byte/zt_cs_cheat/blob/main/wall.png)
