@@ -1,6 +1,6 @@
 ## zt_cs cheat
 
-Just download and unzip tun zt_cs and enjoy
+Just [download](https://github.com/zabbix-byte/zt_cs_cheat/blob/main/output/zt_cs.zip) and unzip, run zt_cs and enjoy
 
 *WALL, BHOP AND AIM*
 
