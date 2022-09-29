@@ -18,6 +18,7 @@ class Bhop(Player):
                 self.active_bhop()
 
             if keyboard.is_pressed('f3'):
+                print('Exit Bhop')
                 time.sleep(0.1)
                 break
 

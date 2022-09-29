@@ -2,10 +2,14 @@
 
 Just download and unzip tun zt_cs and enjoy
 
-keys
-- F-1 > WALL (START-STOP(IF BHOP ON YOU CANT STOP))
-- F-2 > ENTER TO BHOP
+*WALL, BHOP AND AIM*
+
+### keys
+- 7 > WALL (START-STOP(IF BHOP ON YOU CANT STOP))
+- 8 > ENTER TO BHOP
 - F-3 > EXIT BHOP
+- 9 > ENTER TO AIM
+- F-3 > EXIT AIM
 - 0 > EXIT
 
-made in 40 minutes for fun xd
+made for fun
