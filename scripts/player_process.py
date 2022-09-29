@@ -1,4 +1,4 @@
-from get_process import GetProcess
+from scripts.get_process import GetProcess
 import re
 import pymem
 import requests

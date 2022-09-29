@@ -1,7 +1,7 @@
-import keyboard
-from player_process import Player
-from netvars import NETVARS
+from scripts.player_process import Player
+from scripts.netvars import NETVARS
 
+import keyboard
 import time
 
 """
@@ -17,7 +17,7 @@ class Bhop(Player):
             if keyboard.is_pressed('space'):
                 self.active_bhop()
 
-            if keyboard.is_pressed('f2'):
+            if keyboard.is_pressed('f3'):
                 time.sleep(0.1)
                 break
 

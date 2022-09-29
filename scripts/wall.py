@@ -1,6 +1,6 @@
 import re
 
-from get_process import GetProcess
+from scripts.get_process import GetProcess
 
 """
 made by zabbix https://github.com/zabbix-byte
