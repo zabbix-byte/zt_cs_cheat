@@ -1,20 +1,63 @@
-import re
-
-from scripts.get_process import GetProcess
-
-"""
-made by zabbix https://github.com/zabbix-byte
-"""
+from scripts.player_process import Player
+from math import *
+import keyboard
+import time
 
 
-class CsGoWall(GetProcess):
+class Wall(Player):
+    radar = False  # radar
+    chams = False  # for moment this funtion is disabled
+    color = (0, 255, 0)  # color of enemy
+    wall_running = False
+    wall_key = '7'
+
     def __init__(self) -> None:
         super().__init__()
-        self.active_wall()
+        while True:
+            time.sleep(0.0015)
+            for i in range(0, 64):
+                entity = self.pm.read_uint(
+                    self.client + self.entity_list + i * 0x10)
+                if entity:
+                    entity_glow, entity_team_id, entity_isdefusing, entity_hp, entity_dormant = self.get_entity_vars(
+                        entity)
+                    self.set_entity_glow(
+                        entity_team_id, entity_dormant, entity_glow)
 
-    def active_wall(self):
-        address = self.client_leg.lpBaseOfDll + re.search(rb'\x83\xF8.\x8B\x45\x08\x0F',
-                                                          self.client_module).start() + 2
-        self.pm.write_uchar(
-            address, 2 if self.pm.read_uchar(address) == 1 else 1)
-        self.pm.close_process()
+                    if self.radar:
+                        self.pm.write_int(entity + self.b_spotted, 1)
+
+            if keyboard.is_pressed(Wall.wall_key):
+                time.sleep(0.1)
+                Wall.wall_running = False
+                print('<zt_cs> Exit WALL')
+                break
+
+    def set_entity_glow(self, entity_team_id, entity_dormant, entity_glow):
+        enemy = 2 if self.local_team == 3 else 3
+
+        # long wange wall
+        if entity_team_id == enemy and not entity_dormant:
+            self.pm.write_float(
+                self.glow_manager + entity_glow * 0x38 + 0x8, float(self.color[0]))  # R
+            self.pm.write_float(
+                self.glow_manager + entity_glow * 0x38 + 0xC, float(self.color[1]))  # G
+            self.pm.write_float(
+                self.glow_manager + entity_glow * 0x38 + 0x10, float(self.color[2]))  # B
+            self.pm.write_float(self.glow_manager +
+                                entity_glow * 0x38 + 0x14, float(255))  # A
+            self.pm.write_int(self.glow_manager +
+                              entity_glow * 0x38 + 0x28, 1)  # Enable
+
+    def get_entity_vars(self, entity):
+        while True:
+            try:
+                entity_glow = self.pm.read_uint(entity + self.glow_index)
+                entity_team_id = self.pm.read_uint(entity + self.team_num)
+                entity_isdefusing = self.pm.read_uint(entity + self.defusing)
+                entity_hp = self.pm.read_uint(entity + self.i_health)
+                entity_dormant = self.pm.read_uint(entity + self.m_dormant)
+            except Exception as e:
+                time.sleep(0.2)
+                continue
+            return entity_glow, entity_team_id, entity_isdefusing, entity_hp, entity_dormant

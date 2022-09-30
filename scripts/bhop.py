@@ -10,6 +10,8 @@ made by zabbix https://github.com/zabbix-byte
 
 
 class Bhop(Player):
+    bhop_running = False
+    bhop_key = '8'
     def __init__(self) -> None:
         super().__init__()
         while True:
@@ -17,9 +19,10 @@ class Bhop(Player):
             if keyboard.is_pressed('space'):
                 self.active_bhop()
 
-            if keyboard.is_pressed('f3'):
-                print('Exit Bhop')
+            if keyboard.is_pressed(Bhop.bhop_key):
                 time.sleep(0.1)
+                print('<zt_cs> EXIT BHOP')
+                Bhop.bhop_running = False
                 break
 
     def active_bhop(self):

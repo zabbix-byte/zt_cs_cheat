@@ -73,6 +73,12 @@ class Player(GetProcess):
 
         self.get_player_vars()
 
+        self.glow_index = int(NETVARS["DT_CSPlayer"]["m_flFlashDuration"]) + 24
+
+        self.defusing = int(NETVARS["DT_CSPlayer"]["m_bIsDefusing"])
+
+        self.b_spotted = int(NETVARS["DT_BaseEntity"]["m_bSpotted"])
+
 
 
     def get_player_vars(self):

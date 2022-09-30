@@ -72,13 +72,14 @@ class Aim(Player):
     conf_smooth = True #smooth 
     conf_aimtrcs = True # rcs
     conf_sens = 0.5 # 0.5 to 1.5
+    aim_running = False
+    aim_key = '9'
 
     def __init__(self) -> None:
         super().__init__()
         s = 0
         n = 0
         first = True
-        print('Aim running')
         random = Vec3(0, 0, 0)
 
 
@@ -110,12 +111,14 @@ class Aim(Player):
                 else:
                     self.shoot(localpos, targetpos, self.conf_aimtrcs)
 
-            if keyboard.is_pressed('f3'):
-                print('exit AIM')
+            if keyboard.is_pressed(Aim.aim_key):
+                time.sleep(0.1)
+                print('<zt_cs> EXIT AIM')
                 s = 0
                 n = 0
                 first = True
                 random = Vec3(0, 0, 0)
+                Aim.aim_running = False
                 break
 
     def check_index(self):
