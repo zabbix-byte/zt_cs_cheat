@@ -1,10 +1,14 @@
-## zt_cs cheat
+# ZT CS GO CHEAT
+C.S GO cheat easy to use and no installation needed.
 
-C.S GO cheat easy to use and easy to install xd
+![](https://github.com/zabbix-byte/zt_cs_cheat/blob/main/ico.ico)
 
-**Just [download](https://github.com/zabbix-byte/zt_cs_cheat/releases/download/B-0.3/zt_cs.zip) and unzip, run zt_cs and enjoy**
+
+#### **Just [download](https://github.com/zabbix-byte/zt_cs_cheat/releases/download/B-0.3/zt_cs.zip) and unzip, run zt_cs and enjoy**
 
 #### *WALL, BHOP AND AIM*
+![](https://github.com/zabbix-byte/zt_cs_cheat/blob/main/app.png)
+
 
 #### **WALL options**
 - radar: True/False
@@ -34,5 +38,5 @@ C.S GO cheat easy to use and easy to install xd
 - **EXIT**
   - 0 > EXIT
 
-made for fun
-![](https://github.com/zabbix-byte/zt_cs_cheat/blob/main/wall2.0.png)
+### Game preview
+![](https://github.com/zabbix-byte/zt_cs_cheat/blob/main/preview.png)
