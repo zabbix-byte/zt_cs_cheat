@@ -1,8 +1,7 @@
 # ZT CS GO CHEAT
 C.S GO cheat easy to use and no installation needed.
-
+ 
 ![](https://github.com/zabbix-byte/zt_cs_cheat/blob/main/ico.ico)
-
 
 #### **Just [download](https://github.com/zabbix-byte/zt_cs_cheat/releases/download/B-0.3/zt_cs.zip) and unzip, run zt_cs and enjoy**
 
