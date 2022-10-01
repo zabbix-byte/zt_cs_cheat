@@ -1,2 +1,5 @@
 keyboard
 pymem
+tk
+customtkinter
+Pillow

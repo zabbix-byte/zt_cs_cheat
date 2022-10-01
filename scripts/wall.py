@@ -1,19 +1,25 @@
 from scripts.player_process import Player
+from scripts.states import AppStates
 from math import *
+from scripts.ui import *
 import keyboard
 import time
+
+"""
+made by zabbix https://github.com/zabbix-byte
+"""
 
 
 class Wall(Player):
     radar = False  # radar
     chams = False  # for moment this funtion is disabled
-    color = (0, 255, 0)  # color of enemy
+    color = (255, 0, 0)  # color of enemy
     wall_running = False
     wall_key = '7'
 
     def __init__(self) -> None:
         super().__init__()
-        while True:
+        while Wall.wall_running:
             time.sleep(0.0015)
             for i in range(0, 64):
                 entity = self.pm.read_uint(
@@ -27,11 +33,21 @@ class Wall(Player):
                     if self.radar:
                         self.pm.write_int(entity + self.b_spotted, 1)
 
-            if keyboard.is_pressed(Wall.wall_key):
-                time.sleep(0.1)
-                Wall.wall_running = False
-                print('<zt_cs> Exit WALL')
-                break
+                if wall_switch.get() == False:
+                    time.sleep(0.1)
+                    print('<zt_cs> Exit WALL')
+                    Wall.wall_running = False
+                    break
+
+                elif keyboard.is_pressed(self.wall_key) or AppStates.APP_RUNNING == False:
+                    time.sleep(0.1)
+                    print('<zt_cs> Exit WALL')
+                    Wall.wall_running = False
+
+                    if wall_switch.get() == True:
+                        wall_switch.deselect()
+                        app.update()
+                    break
 
     def set_entity_glow(self, entity_team_id, entity_dormant, entity_glow):
         enemy = 2 if self.local_team == 3 else 3

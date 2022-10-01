@@ -1,5 +1,7 @@
 from scripts.player_process import Player
 from math import *
+from scripts.states import AppStates
+from scripts.ui import *
 from random import randint
 import keyboard
 import time
@@ -8,11 +10,13 @@ import time
 made by zabbix https://github.com/zabbix-byte
 """
 
+
 class Vec3:
     def __init__(self, x, y, z):
         self.x = x
         self.y = y
         self.z = z
+
 
 def angle(local: Vec3, enemy: Vec3):
     delta = Vec3(0, 0, 0)
@@ -30,6 +34,7 @@ def angle(local: Vec3, enemy: Vec3):
 
     return new
 
+
 def normalize_angles(angle: Vec3):
     if angle.x > 89:
         angle.x -= 360
@@ -40,6 +45,7 @@ def normalize_angles(angle: Vec3):
     elif angle.y < -180:
         angle.y += 360
     return angle
+
 
 def cal_dist(current: Vec3, new: Vec3):
     distance = Vec3(0, 0, 0)
@@ -63,15 +69,16 @@ def cal_dist(current: Vec3, new: Vec3):
 
     mag = sqrt(distance.x * distance.x + distance.y * distance.y)
     return mag
-    
-class Aim(Player): 
-    conf_random = 10 # 5 to 25
-    conf_spotted = False # Spotted
+
+
+class Aim(Player):
+    conf_random = 10  # 5 to 25
+    conf_spotted = False  # Spotted
     conf_baim = False  # body-aim
-    conf_aim_fov = True # Fov
-    conf_smooth = True #smooth 
-    conf_aimtrcs = True # rcs
-    conf_sens = 0.5 # 0.5 to 1.5
+    conf_aim_fov = True  # Fov
+    conf_smooth = True  # smooth
+    conf_aimtrcs = True  # rcs
+    conf_sens = 0.5  # 0.5 to 1.5
     aim_running = False
     aim_key = '9'
 
@@ -82,25 +89,29 @@ class Aim(Player):
         first = True
         random = Vec3(0, 0, 0)
 
-
-        while True:
+        while Aim.aim_running:
             time.sleep(0.0015)
             if self.conf_random != 0 and random.x == 0 and random.y == 0 and random.z == 0 and first:
-                    random = Vec3(randint(-self.conf_random, self.conf_random), randint(-self.conf_random, self.conf_random), 0)
+                random = Vec3(randint(-self.conf_random, self.conf_random),
+                              randint(-self.conf_random, self.conf_random), 0)
 
-            target, localpos, targetpos = self.get_best_target(self.conf_spotted, self.conf_baim, self.conf_aim_fov, random)
+            target, localpos, targetpos = self.get_best_target(
+                self.conf_spotted, self.conf_baim, self.conf_aim_fov, random)
 
-            
             if target is not None and localpos is not None and targetpos is not None:
                 if self.conf_smooth and not (self.pm.read_int(self.player + self.shoots_fired) > 1 and self.conf_aimtrcs):
 
                     localAngle = Vec3(0, 0, 0)
-                    localAngle.x = self.pm.read_float(self.engine_pointer + self.client_state_angles)
-                    localAngle.y = self.pm.read_float(self.engine_pointer + self.client_state_angles + 0x4)
-                    localAngle.z = self.pm.read_float(self.player + self.vec_view_off + 0x8)
+                    localAngle.x = self.pm.read_float(
+                        self.engine_pointer + self.client_state_angles)
+                    localAngle.y = self.pm.read_float(
+                        self.engine_pointer + self.client_state_angles + 0x4)
+                    localAngle.z = self.pm.read_float(
+                        self.player + self.vec_view_off + 0x8)
 
                     if s <= int(n) and cal_dist(angle(localpos, targetpos), localAngle) > 0.7:
-                        n = self.step(self.conf_sens, localpos, targetpos, localAngle, s, n)
+                        n = self.step(self.conf_sens, localpos,
+                                      targetpos, localAngle, s, n)
                         s += 1
                     elif s >= int(n) or cal_dist(angle(localpos, targetpos), localAngle):
                         s = 0
@@ -111,19 +122,27 @@ class Aim(Player):
                 else:
                     self.shoot(localpos, targetpos, self.conf_aimtrcs)
 
-            if keyboard.is_pressed(Aim.aim_key):
+            if aim_switch.get() == False:
                 time.sleep(0.1)
-                print('<zt_cs> EXIT AIM')
-                s = 0
-                n = 0
-                first = True
-                random = Vec3(0, 0, 0)
+                print('<zt_cs> Exit AIM')
                 Aim.aim_running = False
-                break
+                
+
+            elif keyboard.is_pressed(self.aim_key) or AppStates.APP_RUNNING == False:
+                time.sleep(0.1)
+                print('<zt_cs> Exit AIM')
+                
+                if aim_switch.get() == True:
+                    aim_switch.deselect()
+                    app.update()
+
+                Aim.aim_running = False
+                
 
     def check_index(self):
         clientstate = self.pm.read_uint(self.engine + self.client_state)
-        id = self.pm.read_uint(clientstate + self.client_state_get_local_player)
+        id = self.pm.read_uint(
+            clientstate + self.client_state_get_local_player)
         return id
 
     def get_best_target(self, spotted, baim, aimfov, random):
@@ -135,38 +154,53 @@ class Aim(Player):
             player_team = self.pm.read_int(self.player + self.team_num)
             engine_pointer = self.pm.read_uint(self.engine + self.client_state)
             for i in range(1, 32):
-                entity = self.pm.read_uint(self.client + self.entity_list + i * 0x10)
+                entity = self.pm.read_uint(
+                    self.client + self.entity_list + i * 0x10)
 
                 if entity and entity != self.player:
                     entity_hp = self.pm.read_uint(entity + self.i_health)
                     entity_dormant = self.pm.read_uint(entity + self.m_dormant)
                     entity_team = self.pm.read_uint(entity + self.team_num)
                     if spotted:
-                        Entspotted = self.pm.read_uint(entity + self.m_spotted_map)
+                        Entspotted = self.pm.read_uint(
+                            entity + self.m_spotted_map)
                     else:
                         Entspotted = True
 
                     if entity_hp > 0 and not entity_dormant and Entspotted and entity_team != player_team:
                         localAngle = Vec3(0, 0, 0)
-                        localAngle.x = self.pm.read_float(engine_pointer + self.client_state_angles)
-                        localAngle.y = self.pm.read_float(engine_pointer + self.client_state_angles + 0x4)
-                        localAngle.z = self.pm.read_float(self.player + self.vec_view_off + 0x8)
+                        localAngle.x = self.pm.read_float(
+                            engine_pointer + self.client_state_angles)
+                        localAngle.y = self.pm.read_float(
+                            engine_pointer + self.client_state_angles + 0x4)
+                        localAngle.z = self.pm.read_float(
+                            self.player + self.vec_view_off + 0x8)
 
                         localpos = Vec3(0, 0, 0)
-                        localpos.x = self.pm.read_float(self.player + self.vec_origin)
+                        localpos.x = self.pm.read_float(
+                            self.player + self.vec_origin)
 
-                        localpos.y = self.pm.read_float(self.player + self.vec_origin + 4)
-                        localpos.z = self.pm.read_float(self.player + self.vec_origin + 8) + localAngle.z
-                        entity_bone = self.pm.read_uint(entity + self.bone_matrix)
+                        localpos.y = self.pm.read_float(
+                            self.player + self.vec_origin + 4)
+                        localpos.z = self.pm.read_float(
+                            self.player + self.vec_origin + 8) + localAngle.z
+                        entity_bone = self.pm.read_uint(
+                            entity + self.bone_matrix)
                         entitypos = Vec3(0, 0, 0)
                         if baim is True:
-                            entitypos.x = self.pm.read_float(entity_bone + 0x30 * 5 + 0xC) + random.x
-                            entitypos.y = self.pm.read_float(entity_bone + 0x30 * 5 + 0x1C) + random.y
-                            entitypos.z = self.pm.read_float(entity_bone + 0x30 * 5 + 0x2C) + random.z
+                            entitypos.x = self.pm.read_float(
+                                entity_bone + 0x30 * 5 + 0xC) + random.x
+                            entitypos.y = self.pm.read_float(
+                                entity_bone + 0x30 * 5 + 0x1C) + random.y
+                            entitypos.z = self.pm.read_float(
+                                entity_bone + 0x30 * 5 + 0x2C) + random.z
                         else:
-                            entitypos.x = self.pm.read_float(entity_bone + 0x30 * 8 + 0xC) + random.x
-                            entitypos.y = self.pm.read_float(entity_bone + 0x30 * 8 + 0x1C) + random.y
-                            entitypos.z = self.pm.read_float(entity_bone + 0x30 * 8 + 0x2C) + random.z
+                            entitypos.x = self.pm.read_float(
+                                entity_bone + 0x30 * 8 + 0xC) + random.x
+                            entitypos.y = self.pm.read_float(
+                                entity_bone + 0x30 * 8 + 0x1C) + random.y
+                            entitypos.z = self.pm.read_float(
+                                entity_bone + 0x30 * 8 + 0x2C) + random.z
                         new = angle(localpos, entitypos)
 
                         newdist = cal_dist(localAngle, new)
@@ -203,11 +237,15 @@ class Aim(Player):
         AngDiff.y = AngDiff.y - LocalAngle.y
         AngDiff.z = AngDiff.z - LocalAngle.z
         normalize_angles(AngDiff)
-        Dist = sqrt(AngDiff.x * AngDiff.x + AngDiff.y * AngDiff.y + AngDiff.z * AngDiff.z)
+        Dist = sqrt(AngDiff.x * AngDiff.x + AngDiff.y *
+                    AngDiff.y + AngDiff.z * AngDiff.z)
         if i == 0:
             n = Dist * smooth
-        AddAngl = Vec3(AngDiff.x / (n - i), AngDiff.y / (n - i), AngDiff.z / (n - i))
+        AddAngl = Vec3(AngDiff.x / (n - i), AngDiff.y /
+                       (n - i), AngDiff.z / (n - i))
         writeang = Vec3(LocalAngle.x + AddAngl.x, LocalAngle.y + AddAngl.y, 0)
-        self.pm.write_float(self.engine_pointer + self.client_state_angles, writeang.x)
-        self.pm.write_float(self.engine_pointer + self.client_state_angles + 0x4, writeang.y)
+        self.pm.write_float(self.engine_pointer +
+                            self.client_state_angles, writeang.x)
+        self.pm.write_float(self.engine_pointer +
+                            self.client_state_angles + 0x4, writeang.y)
         return n
