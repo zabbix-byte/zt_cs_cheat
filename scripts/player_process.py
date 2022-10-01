@@ -79,6 +79,9 @@ class Player(GetProcess):
 
         self.b_spotted = int(NETVARS["DT_BaseEntity"]["m_bSpotted"])
 
+        self.model_ambient = self.get_sig("engine.dll", bytes(self.pattern_dict["model_ambient_min"], encoding="raw_unicode_escape"), 0, 4)
+        self.model_ambient = int(self.model_ambient, 0)   
+
 
 
     def get_player_vars(self):
