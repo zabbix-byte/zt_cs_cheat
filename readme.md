@@ -3,7 +3,7 @@ C.S GO cheat easy to use and no installation needed.
  
 ![](https://github.com/zabbix-byte/zt_cs_cheat/blob/main/ico.ico)
 
-#### **Just [download](https://github.com/zabbix-byte/zt_cs_cheat/releases/download/B-0.4/zt_cs.zip) and unzip, run zt_cs and enjoy**
+#### **Just [download](https://github.com/zabbix-byte/zt_cs_cheat/releases/download/B-0.5/zt_cs.zip) and unzip, run zt_cs and enjoy**
 
 #### *WALL, BHOP AND AIM*
 ![](https://github.com/zabbix-byte/zt_cs_cheat/blob/main/app.png)
