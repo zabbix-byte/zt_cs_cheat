@@ -9,7 +9,7 @@ C.S GO cheat easy to use and <strong>no installation needed</strong>.
 </p>
 
 <h3 align="center">
-Just <a href="https://github.com/zabbix-byte/zt_cs_cheat/releases/download/B-0.6/zt_cs.zip">DOWNLOAD</a> and unzip, run zt_cs and ENJOY
+Just <a href="https://github.com/zabbix-byte/zt_cs_cheat/releases/download/B-0.6/zt_cs.zip">DOWNLOAD</a>, unzip and run zt_cs and ENJOY
 </h3>
 
 <p align="center">
