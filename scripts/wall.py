@@ -12,6 +12,7 @@ made by zabbix https://github.com/zabbix-byte
 
 class Chams(Player):
     chams_color = (255, 0, 0)
+
     def __init__(self) -> None:
         super().__init__()
 
@@ -77,48 +78,65 @@ class Wall(Chams):
 
         First = True
         cham = False
+        try:
+            while Wall.wall_running:
+                time.sleep(0.0015)
+                for i in range(0, 64):
+                    entity = self.pm.read_uint(
+                        self.client + self.entity_list + i * 0x10)
+                    if entity:
+                        entity_glow, entity_team_id, entity_isdefusing, entity_hp, entity_dormant = self.get_entity_vars(
+                            entity)
+                        self.set_entity_glow(
+                            entity_team_id, entity_dormant, entity_glow)
 
-        while Wall.wall_running:
-            time.sleep(0.0015)
-            for i in range(0, 64):
-                entity = self.pm.read_uint(
-                    self.client + self.entity_list + i * 0x10)
-                if entity:
-                    entity_glow, entity_team_id, entity_isdefusing, entity_hp, entity_dormant = self.get_entity_vars(
-                        entity)
-                    self.set_entity_glow(
-                        entity_team_id, entity_dormant, entity_glow)
+                        if radat_switch.get():
+                            self.pm.write_int(entity + self.b_spotted, 1)
 
-                    if radat_switch.get():
-                        self.pm.write_int(entity + self.b_spotted, 1)
+                        if chams_switch.get():
+                            self.chams(entity, entity_team_id,
+                                       entity_dormant, First)
 
-                    if chams_switch.get():
-                        self.chams(entity, entity_team_id, entity_dormant, First)
+                        if not chams_switch.get() and cham:
+                            self.reset_chams(entity, entity_team_id)
 
-                    if not chams_switch.get() and cham:
-                        self.reset_chams(entity, entity_team_id)
+                        if chams_switch.get():
+                            cham = True
+                        elif not chams_switch.get():
+                            cham = False
+                            First = True
 
-                    if chams_switch.get():
-                        cham = True
-                    elif not chams_switch.get():
-                        cham = False
-                        First = True
+                    if wall_switch.get() == False:
+                        time.sleep(0.1)
+                        print('<zt_cs> Exit WALL')
+                        Wall.wall_running = False
+                        break
 
-                if wall_switch.get() == False:
-                    time.sleep(0.1)
-                    print('<zt_cs> Exit WALL')
-                    Wall.wall_running = False
-                    break
+                    elif keyboard.is_pressed(self.wall_key):
+                        time.sleep(0.1)
+                        print('<zt_cs> Exit WALL')
 
-                elif keyboard.is_pressed(self.wall_key) or AppStates.APP_RUNNING == False:
-                    time.sleep(0.1)
-                    print('<zt_cs> Exit WALL')
-                    Wall.wall_running = False
+                        if wall_switch.get() == True:
+                            wall_switch.deselect()
+                            app.update()
 
-                    if wall_switch.get() == True:
-                        wall_switch.deselect()
-                        app.update()
-                    break
+                        Wall.wall_running = False
+                        break
+
+                    elif AppStates.APP_RUNNING == False:
+                        time.sleep(0.1)
+                        print('<zt_cs> Exit WALL')
+                        Wall.wall_running = False
+                        break
+        except:
+            if aim_switch.get() == True:
+                aim_switch.deselect()
+
+            if wall_switch.get() == True:
+                wall_switch.deselect()
+
+            if bhop_switch.get() == True:
+                bhop_switch.deselect()
 
     def set_entity_glow(self, entity_team_id, entity_dormant, entity_glow):
         enemy = 2 if self.local_team == 3 else 3

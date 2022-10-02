@@ -3,3 +3,4 @@ pymem
 tk
 customtkinter
 Pillow
+psutil

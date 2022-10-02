@@ -27,21 +27,20 @@ class Interface:
         Aim()
 
 
-def commads():
+def back_process():
     while True:
         time.sleep(0.0025)
         if AppStates.APP_RUNNING == False:
-            exit()
-
-        if keyboard.is_pressed('0'):
-            exit()
+            break
 
         if wall_switch.get() == True and Wall.wall_running == False:
             print('<zt_cs> WALL switch')
             time.sleep(0.1)
             Wall.wall_running = True
+         
             wall = threading.Thread(target=Interface.wall)
             wall.start()
+
 
         if keyboard.is_pressed(Wall.wall_key) and Wall.wall_running == False:
             print('<zt_cs> WALL button')

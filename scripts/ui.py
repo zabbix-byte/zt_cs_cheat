@@ -142,18 +142,18 @@ title_aim = customtkinter.CTkLabel(
     master=aim_frame_radar_config_3, justify=tkinter.LEFT, text='Random')
 title_aim.pack(padx=10)
 
-random_config = customtkinter.CTkSlider(master=aim_frame_radar_config_3, command=change_random ,from_=5, to=25)
+random_config = customtkinter.CTkSlider(master=aim_frame_radar_config_3, command=change_random ,from_=0, to=25)
 random_config.pack(padx=10)
-random_config.set(10)
+random_config.set(0)
 
 
 title_aim = customtkinter.CTkLabel(
     master=aim_frame_radar_config_4, justify=tkinter.LEFT, text='Sensibility')
 title_aim.pack(padx=10)
 
-sens_config = customtkinter.CTkSlider(master=aim_frame_radar_config_4, command=change_sens ,from_=0.5, to=1.5)
+sens_config = customtkinter.CTkSlider(master=aim_frame_radar_config_4, command=change_sens ,from_=0, to=1.5)
 sens_config.pack(padx=10)
-sens_config.set(0.5)
+sens_config.set(0)
 
 #############
 

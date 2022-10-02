@@ -1,5 +1,6 @@
 class AppStates:
     APP_RUNNING = True
+    IN_GAME = True
 
 
 """

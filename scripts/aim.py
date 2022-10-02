@@ -72,8 +72,8 @@ def cal_dist(current: Vec3, new: Vec3):
 
 
 class Aim(Player):
-    conf_random = 10  # 5 to 25
-    conf_sens = 0.5  # 0.5 to 1.5
+    conf_random = 0  # 0 to 25
+    conf_sens = 0  # 0 to 1.5
     aim_running = False
     aim_key = '9'
 
@@ -83,56 +83,66 @@ class Aim(Player):
         n = 0
         first = True
         random = Vec3(0, 0, 0)
+        
+        try:
+            while Aim.aim_running:
+                time.sleep(0.0015)
+                if Aim.conf_random != 0 and random.x == 0 and random.y == 0 and random.z == 0 and first:
+                    random = Vec3(randint(-Aim.conf_random, Aim.conf_random),
+                                randint(-Aim.conf_random, Aim.conf_random), 0)
 
-        while Aim.aim_running:
-            time.sleep(0.0015)
-            if Aim.conf_random != 0 and random.x == 0 and random.y == 0 and random.z == 0 and first:
-                random = Vec3(randint(-Aim.conf_random, Aim.conf_random),
-                              randint(-Aim.conf_random, Aim.conf_random), 0)
+                target, localpos, targetpos = self.get_best_target(
+                    conf_spotted.get(), conf_baim.get(), conf_aim_fov.get(), random)
 
-            target, localpos, targetpos = self.get_best_target(
-                conf_spotted.get(), conf_baim.get(), conf_aim_fov.get(), random)
+                if target is not None and localpos is not None and targetpos is not None:
+                    if conf_smooth.get() and not (self.pm.read_int(self.player + self.shoots_fired) > 1 and conf_aimtrcs.get()):
 
-            if target is not None and localpos is not None and targetpos is not None:
-                if conf_smooth.get() and not (self.pm.read_int(self.player + self.shoots_fired) > 1 and conf_aimtrcs.get()):
+                        localAngle = Vec3(0, 0, 0)
+                        localAngle.x = self.pm.read_float(
+                            self.engine_pointer + self.client_state_angles)
+                        localAngle.y = self.pm.read_float(
+                            self.engine_pointer + self.client_state_angles + 0x4)
+                        localAngle.z = self.pm.read_float(
+                            self.player + self.vec_view_off + 0x8)
 
-                    localAngle = Vec3(0, 0, 0)
-                    localAngle.x = self.pm.read_float(
-                        self.engine_pointer + self.client_state_angles)
-                    localAngle.y = self.pm.read_float(
-                        self.engine_pointer + self.client_state_angles + 0x4)
-                    localAngle.z = self.pm.read_float(
-                        self.player + self.vec_view_off + 0x8)
-
-                    if s <= int(n) and cal_dist(angle(localpos, targetpos), localAngle) > 0.7:
-                        n = self.step(Aim.conf_sens, localpos,
-                                      targetpos, localAngle, s, n)
-                        s += 1
-                    elif s >= int(n) or cal_dist(angle(localpos, targetpos), localAngle):
-                        s = 0
-                        n = 0
-                        random = Vec3(0, 0, 0)
-                        first = False
+                        if s <= int(n) and cal_dist(angle(localpos, targetpos), localAngle) > 0.7:
+                            n = self.step(Aim.conf_sens, localpos,
+                                        targetpos, localAngle, s, n)
+                            s += 1
+                        elif s >= int(n) or cal_dist(angle(localpos, targetpos), localAngle):
+                            s = 0
+                            n = 0
+                            random = Vec3(0, 0, 0)
+                            first = False
+                            self.shoot(localpos, targetpos, conf_aimtrcs.get())
+                    else:
                         self.shoot(localpos, targetpos, conf_aimtrcs.get())
-                else:
-                    self.shoot(localpos, targetpos, conf_aimtrcs.get())
 
-            if aim_switch.get() == False:
-                time.sleep(0.1)
-                print('<zt_cs> Exit AIM')
-                Aim.aim_running = False
-                
+                if aim_switch.get() == False:
+                    time.sleep(0.1)
+                    print('<zt_cs> Exit AIM')
+                    Aim.aim_running = False
+        
+                elif keyboard.is_pressed(self.aim_key) or AppStates.APP_RUNNING == False:
+                    time.sleep(0.1)
+                    print('<zt_cs> Exit AIM')
+                    
+                    if aim_switch.get() == True:
+                        aim_switch.deselect()
+                        app.update()
 
-            elif keyboard.is_pressed(self.aim_key) or AppStates.APP_RUNNING == False:
-                time.sleep(0.1)
-                print('<zt_cs> Exit AIM')
-                
-                if aim_switch.get() == True:
-                    aim_switch.deselect()
-                    app.update()
+                    Aim.aim_running = False
+                    
+        except:
+            if aim_switch.get() == True:
+                aim_switch.deselect()
 
-                Aim.aim_running = False
-                
+            if wall_switch.get() == True:
+                wall_switch.deselect()
+
+            if bhop_switch.get() == True:
+                bhop_switch.deselect()   
+        
 
     def check_index(self):
         clientstate = self.pm.read_uint(self.engine + self.client_state)
