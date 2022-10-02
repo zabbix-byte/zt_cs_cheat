@@ -2,7 +2,7 @@
 [![Donate](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white
 )](https://www.paypal.com/donate/?hosted_button_id=5MTHH82ABTJDA)
 [![Donate](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/zabbix-byte)
-[![Donate](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/zabbix-byte/zt_cs_cheat/releases/download/B-0.6/zt_cs.zip)
+[![Donate](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/zabbix-byte/zt_cs_cheat/releases/download/S-1.0/zt_cs.zip)
 [![Donate](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 
 # 💀 ZT CS GO `CHEAT` | `(STABLE VERSION)`
@@ -16,7 +16,7 @@ C.S GO CHEAT EASY TO USE, JUST RUN AND ENJOY 🕹
 </p>
 
 <h3 align="center">
-Just <a href="https://github.com/zabbix-byte/zt_cs_cheat/releases/download/B-0.6/zt_cs.zip">DOWNLOAD</a>, unzip and run <strong>zt_cs.exe</strong> and ENJOY
+Just <a href="https://github.com/zabbix-byte/zt_cs_cheat/releases/download/S-1.0/zt_cs.zip">DOWNLOAD</a>, unzip and run <strong>zt_cs.exe</strong> and ENJOY
 </h3>
 
 <p align="center">
