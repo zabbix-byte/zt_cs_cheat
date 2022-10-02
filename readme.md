@@ -1,7 +1,7 @@
 # ZT CS GO CHEAT
 
  <p align="center">
-C.S GO cheat easy to use and no installation needed.
+C.S GO cheat easy to use and no <strong>installation needed</strong>.
  </p>
  
  <p align="center">
