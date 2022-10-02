@@ -5,7 +5,7 @@
 [![Donate](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/zabbix-byte/zt_cs_cheat/releases/download/B-0.6/zt_cs.zip)
 [![Donate](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 
-# ZT CS GO `CHEAT`
+# 💀 ZT CS GO `CHEAT` | FULL WALL, AIM, BHOP ETC `(BETA)`
 
  <h4 align="center">
 C.S GO CHEAT EASY TO USE, JUST RUN ANT ENJOY 🕹
