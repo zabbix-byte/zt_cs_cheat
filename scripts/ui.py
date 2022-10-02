@@ -82,12 +82,78 @@ aim_frame_radar = customtkinter.CTkFrame(master=app)
 aim_frame_radar.pack(pady=10, padx=40, fill="both", expand=True)
 
 title_aim = customtkinter.CTkLabel(
-    master=aim_frame_radar, justify=tkinter.LEFT, text='AIM CONFIG')
-title_aim.pack(pady=12, padx=10)
+    master=aim_frame_radar, justify=tkinter.LEFT, text='RUN AIM')
+title_aim.pack(pady=5, padx=10)
+
 
 aim_switch = customtkinter.CTkSwitch(
     master=aim_frame_radar, text='Run Aim | KEY 9', state=tkinter.NORMAL, onvalue=True, offvalue=False)
 aim_switch.pack(side='left', padx=20)
+
+aim_frame_radar_config = customtkinter.CTkFrame(master=app)
+aim_frame_radar_config.pack(pady=5, padx=70, fill="both", expand=True)
+
+title_aim = customtkinter.CTkLabel(
+    master=aim_frame_radar_config, justify=tkinter.LEFT, text='AIM CONFIG')
+title_aim.pack(pady=12, padx=5)
+
+conf_aim_fov = customtkinter.CTkSwitch(
+    master=aim_frame_radar_config, text='Fov', state=tkinter.NORMAL, onvalue=True, offvalue=False)
+conf_aim_fov.pack(side='left', padx=5)
+conf_aim_fov.select()
+
+conf_spotted = customtkinter.CTkSwitch(
+    master=aim_frame_radar_config, text='No fov walls', state=tkinter.NORMAL, onvalue=True, offvalue=False)
+conf_spotted.pack(side='left', padx=5)
+conf_spotted.select()
+
+conf_smooth = customtkinter.CTkSwitch(
+    master=aim_frame_radar_config, text='Smooth', state=tkinter.NORMAL, onvalue=True, offvalue=False)
+conf_smooth.pack(side='left', padx=5)
+
+aim_frame_radar_config_2 = customtkinter.CTkFrame(master=app)
+aim_frame_radar_config_2.pack(pady=5, padx=70, fill="both", expand=True)
+
+conf_baim = customtkinter.CTkSwitch(
+    master=aim_frame_radar_config_2, text='Only body', state=tkinter.NORMAL, onvalue=True, offvalue=False)
+conf_baim.pack(side='left', padx=5)
+
+conf_aimtrcs = customtkinter.CTkSwitch(
+    master=aim_frame_radar_config_2, text='Recoil Control System', state=tkinter.NORMAL, onvalue=True, offvalue=False)
+conf_aimtrcs.pack(side='left', padx=5)
+
+aim_frame_radar_config_3 = customtkinter.CTkFrame(master=app)
+aim_frame_radar_config_3.pack(pady=5, padx=70, fill="both", expand=True)
+
+aim_frame_radar_config_4 = customtkinter.CTkFrame(master=app)
+aim_frame_radar_config_4.pack(pady=5, padx=70, fill="both", expand=True)
+
+
+def change_random(value):
+    from scripts.aim import Aim
+    Aim.conf_random = value
+
+
+def change_sens(value):
+    from scripts.aim import Aim
+    Aim.conf_sens = value
+
+title_aim = customtkinter.CTkLabel(
+    master=aim_frame_radar_config_3, justify=tkinter.LEFT, text='Random')
+title_aim.pack(padx=10)
+
+random_config = customtkinter.CTkSlider(master=aim_frame_radar_config_3, command=change_random ,from_=5, to=25)
+random_config.pack(padx=10)
+random_config.set(10)
+
+
+title_aim = customtkinter.CTkLabel(
+    master=aim_frame_radar_config_4, justify=tkinter.LEFT, text='Sensibility')
+title_aim.pack(padx=10)
+
+sens_config = customtkinter.CTkSlider(master=aim_frame_radar_config_4, command=change_sens ,from_=0.5, to=1.5)
+sens_config.pack(padx=10)
+sens_config.set(0.5)
 
 #############
 
@@ -97,8 +163,8 @@ bhop_frame_radar = customtkinter.CTkFrame(master=app)
 bhop_frame_radar.pack(pady=10, padx=40, fill="both", expand=True)
 
 title_bhop = customtkinter.CTkLabel(
-    master=bhop_frame_radar, justify=tkinter.LEFT, text='RUN CONFIG')
-title_bhop.pack(pady=12, padx=10)
+    master=bhop_frame_radar, justify=tkinter.LEFT, text='RUN BHOP')
+title_bhop.pack(pady=5, padx=10)
 
 bhop_switch = customtkinter.CTkSwitch(
     master=bhop_frame_radar, text='Run Bhop | KEY 8', state=tkinter.NORMAL, onvalue=True, offvalue=False)

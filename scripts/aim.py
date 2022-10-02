@@ -73,11 +73,6 @@ def cal_dist(current: Vec3, new: Vec3):
 
 class Aim(Player):
     conf_random = 10  # 5 to 25
-    conf_spotted = False  # Spotted
-    conf_baim = False  # body-aim
-    conf_aim_fov = True  # Fov
-    conf_smooth = True  # smooth
-    conf_aimtrcs = True  # rcs
     conf_sens = 0.5  # 0.5 to 1.5
     aim_running = False
     aim_key = '9'
@@ -91,15 +86,15 @@ class Aim(Player):
 
         while Aim.aim_running:
             time.sleep(0.0015)
-            if self.conf_random != 0 and random.x == 0 and random.y == 0 and random.z == 0 and first:
-                random = Vec3(randint(-self.conf_random, self.conf_random),
-                              randint(-self.conf_random, self.conf_random), 0)
+            if Aim.conf_random != 0 and random.x == 0 and random.y == 0 and random.z == 0 and first:
+                random = Vec3(randint(-Aim.conf_random, Aim.conf_random),
+                              randint(-Aim.conf_random, Aim.conf_random), 0)
 
             target, localpos, targetpos = self.get_best_target(
-                self.conf_spotted, self.conf_baim, self.conf_aim_fov, random)
+                conf_spotted.get(), conf_baim.get(), conf_aim_fov.get(), random)
 
             if target is not None and localpos is not None and targetpos is not None:
-                if self.conf_smooth and not (self.pm.read_int(self.player + self.shoots_fired) > 1 and self.conf_aimtrcs):
+                if conf_smooth.get() and not (self.pm.read_int(self.player + self.shoots_fired) > 1 and conf_aimtrcs.get()):
 
                     localAngle = Vec3(0, 0, 0)
                     localAngle.x = self.pm.read_float(
@@ -110,7 +105,7 @@ class Aim(Player):
                         self.player + self.vec_view_off + 0x8)
 
                     if s <= int(n) and cal_dist(angle(localpos, targetpos), localAngle) > 0.7:
-                        n = self.step(self.conf_sens, localpos,
+                        n = self.step(Aim.conf_sens, localpos,
                                       targetpos, localAngle, s, n)
                         s += 1
                     elif s >= int(n) or cal_dist(angle(localpos, targetpos), localAngle):
@@ -118,9 +113,9 @@ class Aim(Player):
                         n = 0
                         random = Vec3(0, 0, 0)
                         first = False
-                        self.shoot(localpos, targetpos, self.conf_aimtrcs)
+                        self.shoot(localpos, targetpos, conf_aimtrcs.get())
                 else:
-                    self.shoot(localpos, targetpos, self.conf_aimtrcs)
+                    self.shoot(localpos, targetpos, conf_aimtrcs.get())
 
             if aim_switch.get() == False:
                 time.sleep(0.1)
