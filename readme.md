@@ -8,7 +8,7 @@
 # 💀 ZT CS GO `CHEAT` | `(BETA)`
 
  <h4 align="center">
-C.S GO CHEAT EASY TO USE, JUST RUN ANT ENJOY 🕹
+C.S GO CHEAT EASY TO USE, JUST RUN AND ENJOY 🕹
  </h4>
  
  <p align="center">
