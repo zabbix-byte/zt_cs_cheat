@@ -8,7 +8,6 @@ made by zabbix https://github.com/zabbix-byte
 """
 
 
-
 def check_if_process_is_running(processName):
     '''
     Check if there is any running process that contains the given name processName.

@@ -5,6 +5,7 @@ from scripts.ui import *
 from random import randint
 import keyboard
 import time
+from scripts.mouse import *
 
 """
 made by zabbix https://github.com/zabbix-byte
@@ -74,6 +75,7 @@ def cal_dist(current: Vec3, new: Vec3):
 class Aim(Player):
     conf_random = 0  # 0 to 25
     conf_sens = 0  # 0 to 1.5
+    auto_shoot = False
     aim_running = False
     aim_key = '9'
 
@@ -93,6 +95,9 @@ class Aim(Player):
 
                 target, localpos, targetpos = self.get_best_target(
                     conf_spotted.get(), conf_baim.get(), conf_aim_fov.get(), random)
+                
+
+                Aim.auto_shoot = auto_shoot.get()
 
                 if target is not None and localpos is not None and targetpos is not None:
                     if conf_smooth.get() and not (self.pm.read_int(self.player + self.shoots_fired) > 1 and conf_aimtrcs.get()):
@@ -224,6 +229,7 @@ class Aim(Player):
         Normal = normalize_angles(Unnormal)
         punchx = self.pm.read_float(self.player + self.m_aim_angle_puch)
         punchy = self.pm.read_float(self.player + self.m_aim_angle_puch + 0x4)
+        
         if aimrcs and self.pm.read_int(self.player + self.shoots_fired) > 1:
             self.pm.write_float(
                 self.engine_pointer + self.client_state_angles, Normal.x - (punchx * 2))
@@ -235,6 +241,10 @@ class Aim(Player):
                 self.engine_pointer + self.client_state_angles, Normal.x)
             self.pm.write_float(self.engine_pointer + self.client_state_angles + 0x4,
                                 Normal.y)
+
+        if Aim.auto_shoot == True:
+            left_click()
+        
 
     def step(self, smooth, CurrLocal, CurrTarget, LocalAngle, i, n):
         AngDiff = normalize_angles(angle(CurrLocal, CurrTarget))

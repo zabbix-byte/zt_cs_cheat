@@ -90,6 +90,10 @@ aim_switch = customtkinter.CTkSwitch(
     master=aim_frame_radar, text='Run Aim | KEY 9', state=tkinter.NORMAL, onvalue=True, offvalue=False)
 aim_switch.pack(side='left', padx=20)
 
+auto_shoot = customtkinter.CTkSwitch(
+    master=aim_frame_radar, text='Auto shoot', state=tkinter.NORMAL, onvalue=True, offvalue=False)
+auto_shoot.pack(side='right', padx=20)
+
 aim_frame_radar_config = customtkinter.CTkFrame(master=app)
 aim_frame_radar_config.pack(pady=5, padx=70, fill="both", expand=True)
 
@@ -151,7 +155,7 @@ title_aim = customtkinter.CTkLabel(
     master=aim_frame_radar_config_4, justify=tkinter.LEFT, text='Sensibility')
 title_aim.pack(padx=10)
 
-sens_config = customtkinter.CTkSlider(master=aim_frame_radar_config_4, command=change_sens ,from_=0, to=1.5)
+sens_config = customtkinter.CTkSlider(master=aim_frame_radar_config_4, command=change_sens ,from_=0, to=2.5)
 sens_config.pack(padx=10)
 sens_config.set(0)
 
@@ -171,6 +175,8 @@ bhop_switch = customtkinter.CTkSwitch(
 bhop_switch.pack(side='left', padx=20)
 
 #############
+
+
 
 #### exit
 exit_fram = customtkinter.CTkFrame(master=app)
