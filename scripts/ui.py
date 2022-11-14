@@ -155,7 +155,7 @@ title_aim = customtkinter.CTkLabel(
     master=aim_frame_radar_config_4, justify=tkinter.LEFT, text='Sensibility')
 title_aim.pack(padx=10)
 
-sens_config = customtkinter.CTkSlider(master=aim_frame_radar_config_4, command=change_sens ,from_=0, to=2.5)
+sens_config = customtkinter.CTkSlider(master=aim_frame_radar_config_4, command=change_sens ,from_=0, to=1.5)
 sens_config.pack(padx=10)
 sens_config.set(0)
 

@@ -111,6 +111,7 @@ class Aim(Player):
                             self.player + self.vec_view_off + 0x8)
 
                         if s <= int(n) and cal_dist(angle(localpos, targetpos), localAngle) > 0.7:
+                            print(Aim.conf_sens)
                             n = self.step(Aim.conf_sens, localpos,
                                         targetpos, localAngle, s, n)
                             s += 1
@@ -119,9 +120,9 @@ class Aim(Player):
                             n = 0
                             random = Vec3(0, 0, 0)
                             first = False
-                            self.shoot(localpos, targetpos, conf_aimtrcs.get())
+                            self.shoot(target, localpos, targetpos, conf_aimtrcs.get())
                     else:
-                        self.shoot(localpos, targetpos, conf_aimtrcs.get())
+                        self.shoot(target, localpos, targetpos, conf_aimtrcs.get())
 
                 if aim_switch.get() == False:
                     time.sleep(0.1)
@@ -224,26 +225,27 @@ class Aim(Player):
             else:
                 return None, None, None
 
-    def shoot(self, localpos, targetpos, aimrcs):
+    def shoot(self, target, localpos, targetpos, aimrcs):
         Unnormal = angle(localpos, targetpos)
         Normal = normalize_angles(Unnormal)
         punchx = self.pm.read_float(self.player + self.m_aim_angle_puch)
         punchy = self.pm.read_float(self.player + self.m_aim_angle_puch + 0x4)
-        
+
         if aimrcs and self.pm.read_int(self.player + self.shoots_fired) > 1:
             self.pm.write_float(
                 self.engine_pointer + self.client_state_angles, Normal.x - (punchx * 2))
             self.pm.write_float(self.engine_pointer + self.client_state_angles + 0x4,
                                 Normal.y - (punchy * 2))
 
-        else:
+        else :
             self.pm.write_float(
                 self.engine_pointer + self.client_state_angles, Normal.x)
             self.pm.write_float(self.engine_pointer + self.client_state_angles + 0x4,
                                 Normal.y)
 
-        if Aim.auto_shoot == True:
+        if Aim.auto_shoot == True and (self.pm.read_int(self.player + self.shoots_fired) > 1) == False and self.pm.read_uint(target + self.m_spotted_map) :
             left_click()
+            time.sleep(0.08)
         
 
     def step(self, smooth, CurrLocal, CurrTarget, LocalAngle, i, n):
