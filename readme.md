@@ -16,7 +16,7 @@ C.S GO CHEAT EASY TO USE, JUST RUN AND ENJOY 🕹
 </p>
 
 <h3 align="center">
-Just <a href="https://github.com/zabbix-byte/zt_cs_cheat/releases/download/S-1.1.1/zt_cs.zip">DOWNLOAD</a>, unzip and run <strong>zt_cs.exe</strong> and ENJOY
+Just <a href="https://github.com/zabbix-byte/zt_cs_cheat/releases/download/S-1.2/zt_cs.zip">DOWNLOAD</a>, unzip and run <strong>zt_cs.exe</strong> and ENJOY
 </h3>
 
 <p align="center">
