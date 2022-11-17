@@ -1,7 +1,10 @@
 import tkinter
 import customtkinter
+from tkinter import *
+from tkinter.ttk import *
 
 from scripts.states import AppStates
+from scripts.utl import *
 
 """
 made by zabbix https://github.com/zabbix-byte
@@ -34,6 +37,8 @@ frame_1.pack(pady=5, padx=10, fill="both", expand=True)
 title = customtkinter.CTkLabel(
     master=frame_1, justify=tkinter.LEFT, text='ZT CHEAT CS GO BETA')
 title.pack(side='left', padx=145)
+
+
 
 
 ### WALL ####
@@ -173,10 +178,9 @@ title_bhop.pack(pady=5, padx=10)
 bhop_switch = customtkinter.CTkSwitch(
     master=bhop_frame_radar, text='Run Bhop | KEY 8', state=tkinter.NORMAL, onvalue=True, offvalue=False)
 bhop_switch.pack(side='left', padx=20)
-
 #############
 
-
+### DLL LOADER
 
 #### exit
 exit_fram = customtkinter.CTkFrame(master=app)
@@ -186,3 +190,15 @@ button_1 = customtkinter.CTkButton(
     master=exit_fram, command=button_exit, text='EXIT')
 button_1.pack(side='left', padx=145)
 
+
+def load_dll_interface():
+    import os
+    os.system(os.path.abspath(r'injector.exe'))
+
+
+dll_loader_frame = customtkinter.CTkFrame(master=app)
+dll_loader_frame.pack(pady=5, fill="both", expand=True)
+
+loader_button = customtkinter.CTkButton(
+    master=dll_loader_frame, command=load_dll_interface, text='LOAD CUSTOM DLL')
+loader_button.pack(pady=7)
