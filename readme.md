@@ -32,5 +32,9 @@ Game preview
 </p>
 
 
+### Load a custom DLL
+
+if you want to load a custom dll just press the button "LOAD CUSTOM DLL" and select your dll, in the folder of github repo [dll_cheats](https://github.com/zabbix-byte/zt_cs_cheat/tree/main/dll_cheats/) you got some dll.
+
 
 
