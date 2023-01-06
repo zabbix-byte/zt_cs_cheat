@@ -7,6 +7,20 @@
 
 # 💀 ZT CS GO `CHEAT` | `(STABLE VERSION)`
 
+
+<div align="center">
+
+  ```
+   ▄▄▄▄▄▄   ██   ███   ███   ▄█     ▄  
+▀   ▄▄▀   █ █  █  █  █  █  ██ ▀▄   █ 
+ ▄▀▀   ▄▀ █▄▄█ █ ▀ ▄ █ ▀ ▄ ██   █ ▀  
+ ▀▀▀▀▀▀   █  █ █  ▄▀ █  ▄▀ ▐█  ▄ █   
+             █ ███   ███    ▐ █   ▀▄ 
+            █                  ▀     
+           ▀                         
+  ```
+  </div>
+  
  <h4 align="center">
 C.S GO CHEAT EASY TO USE, JUST RUN AND ENJOY 🕹
  </h4>
